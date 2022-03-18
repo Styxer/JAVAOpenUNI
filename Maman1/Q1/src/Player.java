@@ -24,4 +24,12 @@ public class Player {
     public  void setName(String otherName){
         name = otherName;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", hand=" + hand +
+                '}';
+    }
 }

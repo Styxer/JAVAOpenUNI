@@ -54,4 +54,11 @@ public class Hand {
     public  int handSize(){
         return cards.size();
     }
+
+    @Override
+    public String toString() {
+        return "Hand{" +
+                "cards=" + cards +
+                '}';
+    }
 }

@@ -14,11 +14,11 @@ public class PrintHelper {
     public  static  void printRoundWinner(Player player1, Card card1 ,Player player2, Card card2, String winner){
         JOptionPane.showMessageDialog(null,  "player1  " + player1.getName() + " with did " + card1 + " hand size " + player1.getHand().handSize()+
                 "\nplayer2  " + player2.getName() + " with did " + card2 + " hand size " + player2.getHand().handSize() +
-                "\nthe winner is of the round is" + winner);
+                "\nthe winner is of the round is " + winner);
     }
 
     public  static  void printGameWinner(Player player){
-        JOptionPane.showMessageDialog(null,"The winner of the game is " + player.getHand());
+//        JOptionPane.showMessageDialog(null,"The winner of this round is  " + player.getName());
     }
 
     public  static  void printGameDraw(){
