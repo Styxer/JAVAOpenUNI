@@ -10,12 +10,16 @@ public class Main {
 //	    Tests tests = new Tests();
 //        tests.Run();
 
-        Rational a = createRational();
-        if(a != null){
+        while (true){
+            Rational a = createRational();
             Rational b = createRational();
-            if(b != null){
-                chooseOption(a,b);
+            chooseOption(a,b);
+            String doAgain = JOptionPane.showInputDialog(null, "האם תרצה לעשות פעולה נוספת,לחץ 1 לצאת וכל דבר אחר להמשיך");
+            if(doAgain.equals("1")){
+                JOptionPane.showMessageDialog(null,"להיתראות");
+                break;
             }
+
         }
 
     }
@@ -38,7 +42,7 @@ public class Main {
         }else if (action.equals("4")) {
             JOptionPane.showMessageDialog(null,a + " * " + b + " = " +  a.multiply(b));
         }else if (action.equals("5")) {
-            JOptionPane.showMessageDialog(null,a + " < > = " + b + " =  " +  a.compareTo(b));
+            JOptionPane.showMessageDialog(null,a + " >? " + b + " =  " +  a.greaterThan(b));
         }else if (action.equals("6")) {
             JOptionPane.showMessageDialog(null,a + " =? " + b + " = " +  a.equals(b));
         }else
@@ -49,7 +53,6 @@ public class Main {
     private static Rational createRational(){
 
         int numerator,denominator;
-        //int numeratorInt, denominatorInt;
         Rational rational = null;
 
         numerator = getNum("רשום את המונה","שגיאה המונה זה לא מספר");
