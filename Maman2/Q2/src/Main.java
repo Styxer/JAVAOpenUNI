@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static javax.swing.JOptionPane.showInputDialog;
@@ -20,7 +21,7 @@ public class Main {
     }
 
     private static void chooseOption(Rational a, Rational b){
-        String action = JOptionPane.showInputDialog(null, "מה תרצה לעשות כפרע\n" +
+        String action = JOptionPane.showInputDialog(null, "בחר פעולה\n" +
                 "לחיבור לחץ 1'\n" +
                 "לחיסר לחץ '2'\n" +
                 "לחילוק לחץ '3'\n" +
@@ -41,52 +42,82 @@ public class Main {
         }else if (action.equals("6")) {
             JOptionPane.showMessageDialog(null,a + " =? " + b + " = " +  a.equals(b));
         }else
-            System.out.println("פעולה לא חוקית ההורים שלך אחים");
+            System.out.println("פעולה לא חוקית ");
     }
 
 
     private static Rational createRational(){
 
-        String numerator,denominator;
-        int numeratorInt, denominatorInt;
+        int numerator,denominator;
+        //int numeratorInt, denominatorInt;
         Rational rational = null;
-        numerator = JOptionPane.showInputDialog(null,"רשום את המונה כפרע");
 
+        numerator = getNum("רשום את המונה","שגיאה המונה זה לא מספר");
+        denominator = getNum("רשום את המכנה", "שגיאה המכנה זה לא מספר");
+        denominator = checkNum(denominator,"<","רשום את המכנה","שגיאה: המכנה חייב להיות גדול מאפס");
+        denominator = checkNum(denominator,"==","רשום את המכנה","שגיאה: אסור שהמכנה יהיה אפס");
 
-         numeratorInt = toInt(numerator);
-
-        //TODO : RETRAY
-        if(numeratorInt == Integer.MIN_VALUE){
-            JOptionPane.showMessageDialog(null, "וולאקס המונה זה לא מספר זה לא מספר + ההורים שלך אחים באנגלית");
-        }else{
-            denominator = JOptionPane.showInputDialog(null,"רשום את המכנה כפרע");
-            denominatorInt = toInt(denominator);
-            if(denominatorInt == Integer.MIN_VALUE) {
-                JOptionPane.showMessageDialog(null, "וולאקס המכנה זה לא מספר זה לא מספר + ההורים שלך אחים באנגלית");
-            }else  if(denominatorInt < 0){
-                JOptionPane.showMessageDialog(null, "וולאקס המכנה המכנה חייב להיות גדול מאפס + ההורים שלכם אחים בריבוע");
-            }else  if(denominatorInt == 0){
-                JOptionPane.showMessageDialog(null, "וולאקס אסור שהמכנה יהיה אפס למה אתה דביל");
-            }
-            else {
-                rational = new Rational(numeratorInt, denominatorInt);
-                JOptionPane.showMessageDialog(null, "המספר  שכתבת כפרע הוא(בצורה מצומצמת) " + rational);
-            }
-
-        }
+        rational = new Rational(numerator, denominator);
+        JOptionPane.showMessageDialog(null, "המספר  שכתבת  הוא(בצורה מצומצמת) " + rational);
         return  rational;
+
     }
 
+    private static int checkNum(int num, String check, String okMsg, String errMsg)   {
+       while (true){
+           if(check.equals("<")){
+               if(num < 0){
+                   JOptionPane.showMessageDialog(null, errMsg);
+                   num = getNum(okMsg, errMsg);
+               }
 
-    private static int toInt(String strNum) {
-        int result = Integer.MIN_VALUE;
-        if (strNum == null) {
-            return result;
-        }
-        try {
-            return Integer.parseInt(strNum);
-        } catch (NumberFormatException nfe) {
-           return result;
-        }
+               else {
+                   break;
+               }
+
+           }
+           else if (check.equals("==")){
+               if(num == 0){
+                   JOptionPane.showMessageDialog(null, errMsg);
+                   num = getNum(okMsg, errMsg);
+               }
+               else{
+                   break;
+               }
+           }
+
+       }
+       return  num;
     }
+
+    private static int getNum(String okMsg, String errMsg){
+        int num = 0;
+        while (true){
+            String temp = JOptionPane.showInputDialog(null,okMsg);
+            if(isInteger(temp)){
+                num = Integer.parseInt(temp);
+                break;
+            }
+            else{
+                JOptionPane.showMessageDialog(null, errMsg);
+            }
+        }
+        return  num;
     }
+
+    public static boolean isInteger(String s) {
+        return isInteger(s,10);
+    }
+
+    private static boolean isInteger(String s, int radix) {
+        if(s.isEmpty()) return false;
+        for(int i = 0; i < s.length(); i++) {
+            if(i == 0 && s.charAt(i) == '-') {
+                if(s.length() == 1) return false;
+                else continue;
+            }
+            if(Character.digit(s.charAt(i),radix) < 0) return false;
+        }
+        return true;
+    }
+}
