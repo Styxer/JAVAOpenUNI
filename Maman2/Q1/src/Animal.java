@@ -2,8 +2,8 @@ import java.awt.*;
 import java.util.Objects;
 
 
-//TODO CLONE
-public abstract  class   Animal {
+/* Represents an animal class*/
+public abstract  class   Animal implements  Cloneable {
      String _name;
      int _age ;
      Color _color;
@@ -15,6 +15,10 @@ public abstract  class   Animal {
      }
 
 
+     @Override
+     protected Object clone() throws CloneNotSupportedException {
+          return super.clone();
+     }
 
      @Override
      public boolean equals(Object o) {
@@ -51,6 +55,9 @@ public abstract  class   Animal {
      }
 
      public void setAge(int age) {
+         if(age <0 ){
+              throw new IllegalArgumentException("age cannot be below zero");
+         }
           _age = age;
      }
 
@@ -58,7 +65,7 @@ public abstract  class   Animal {
           return _color;
      }
 
-     public void set_color(Color color) {
+     public void setColor(Color color) {
           _color = color;
      }
 

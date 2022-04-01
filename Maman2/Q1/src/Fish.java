@@ -5,6 +5,7 @@ public abstract class Fish extends Animal {
 
     protected int _swimDistance;
 
+    /*Represents a fish*/
     protected Fish(int swimDistance, String name, int age, Color color) {
         super(name, age, color);
         _swimDistance = swimDistance;
@@ -38,7 +39,7 @@ public abstract class Fish extends Animal {
         return _swimDistance;
     }
 
-    public void set_swimDistance(int swimDistance) {
+    public void setSwimDistance(int swimDistance) {
         _swimDistance = swimDistance;
     }
 

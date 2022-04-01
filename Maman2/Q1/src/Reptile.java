@@ -5,6 +5,7 @@ public abstract class Reptile extends Animal{
 
     protected  int _leapDistance;
 
+    /*Represents a reptile*/
     protected Reptile(int leapDistance, String name, int age, Color color) {
         super(name, age, color);
         _leapDistance = leapDistance;
@@ -14,6 +15,9 @@ public abstract class Reptile extends Animal{
         return _leapDistance;
     }
     public void setLeapDistance(int leapDistance) {
+        if(leapDistance < 0){
+            throw  new IllegalArgumentException("leap distance cannot be below zero");
+        }
         _leapDistance = leapDistance;
     }
 

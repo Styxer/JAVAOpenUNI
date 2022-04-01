@@ -4,6 +4,7 @@ import java.util.Objects;
 public abstract class Bird extends Animal {
 
     protected  int _flyDistance;
+    /*Represents a bird*/
     protected Bird(int flyDistance, String name, int age, Color color) {
         super(name, age, color);
         _flyDistance = flyDistance;
@@ -22,7 +23,16 @@ public abstract class Bird extends Animal {
     protected abstract void fly();
 
 
+    public int getFlyDistance() {
+        return _flyDistance;
+    }
 
+    public void setFlyDistance(int flyDistance) {
+        if(flyDistance < 0){
+            throw new IllegalArgumentException("flight distance cannot be below zero");
+        }
+        _flyDistance = flyDistance;
+    }
 
     @Override
     public boolean equals(Object o) {

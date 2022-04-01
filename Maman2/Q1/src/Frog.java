@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class Frog extends Reptile{
 
+    /*Represents*/
     protected Frog(int leapDistance, String name, int age, Color color) {
         super(leapDistance, name, age, color);
     }

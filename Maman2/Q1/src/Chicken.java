@@ -5,6 +5,7 @@ public class Chicken extends  Bird{
 
     private Owner _owner;
 
+    /*Represents a bird*/
     protected Chicken(Owner owner,  int flyDistance, String name, int age, Color color) {
         super(flyDistance, name, age, color);
         _owner = owner;
@@ -58,5 +59,13 @@ public class Chicken extends  Bird{
     @Override
     protected void fly() {
         System.out.println("Chicken fly");
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Chicken clone =  (Chicken)super.clone();
+        Owner owner = new Owner(_owner.getName(), _owner.getPhone());
+        clone._owner = owner;
+        return  clone;
     }
 }

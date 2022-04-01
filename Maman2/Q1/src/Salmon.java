@@ -3,6 +3,7 @@ import java.awt.*;
 public class Salmon extends Fish{
 
 
+    /*Represents a salmon*/
     protected Salmon(int swimDistance, String name, int age, Color color) {
         super(swimDistance, name, age, color);
     }

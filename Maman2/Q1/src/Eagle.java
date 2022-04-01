@@ -5,7 +5,8 @@ public class Eagle extends  Bird{
 
     private Owner _owner;
 
-    public Eagle(int flyDistance, String name, int age, Color color, Owner _owner) {
+    /*Represents an eagle*/
+    public Eagle(Owner _owner, int flyDistance, String name, int age, Color color) {
         super(flyDistance, name, age, color);
         this._owner = _owner;
     }
@@ -56,5 +57,12 @@ public class Eagle extends  Bird{
     @Override
     protected void fly() {
         System.out.println("Eagle fly");
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Eagle clone =  (Eagle)super.clone();
+        clone._owner = (Owner)this._owner.clone();
+        return  clone;
     }
 }
