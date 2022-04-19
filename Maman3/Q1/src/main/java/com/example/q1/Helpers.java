@@ -3,9 +3,10 @@ package com.example.q1;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
+//Helper Functions
 public class Helpers {
+    //setting  shape fill - FULL or EMPTY
     public static Shape fillShape(Shape shape, Color selectedColor, Polygon polygon, FillType fillType){
-        //var selectedColor = colorPicker.getValue();
         if(polygon == Polygon.LINE){
             shape.setStroke(selectedColor);
         }else {

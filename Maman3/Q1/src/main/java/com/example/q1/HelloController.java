@@ -9,10 +9,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.util.*;
@@ -57,101 +53,55 @@ public class HelloController {
      private Polygon _polygon;
      private FillType _fillType;
      private Stack<Shape> _shapes;
+     private IBoard _board;
 
     public  void initialize(){
         _polygon = Polygon.RECTANGLE;
         _fillType = FillType.EMPTY;
         _shapes = new Stack<>();
-
-
+        _board = new DrawingBoard();
     }
 
+    //mouse drag
     @FXML
     void mouseDrag(MouseEvent event) {
         _isDragged = true;
     }
 
+    //mouse pressed
     @FXML
     void mousePressed(MouseEvent event) {
         _startPoint = new Point2D(event.getX(), event.getY());
     }
 
+    //mouse released
     @FXML
     void mouseRelased(MouseEvent event) {
         if(_isDragged){
             _endPoint = new Point2D(event.getX(), event.getY());
-            if(_polygon == Polygon.RECTANGLE){
-                createRectangle();
-            }else if(_polygon == Polygon.CIRCLE){
-                createCircle();
-            }else if(_polygon == Polygon.LINE){
-                createLine();
-            }
+            _board.setStartPoint(_startPoint);
+            _board.setEndPoint(_endPoint);
+            _board.setFillType(_fillType);
+            _board.setSelectedColor(colorPicker.getValue());
+            Shape shape = _board.createPolygon(_polygon);
+            addShapeToScreen(shape);
+
         }
     }
 
-    private void createLine(){
-        Line line = new Line(_startPoint.getX(),_startPoint.getY(), _startPoint.getX(),_startPoint.getY());
-        line.setEndX(_endPoint.getX());
-        line.setEndY(_endPoint.getY());
-
-        fillShape(line);
-        addShapeToScreen(line);
-    }
-
-    private void createCircle(){
-        Circle circle = new Circle();
-        circle.setCenterX(_startPoint.getX());
-        circle.setCenterY(_endPoint.getY());
-        double radius = Math.sqrt(Math.pow(_startPoint.getX() - _endPoint.getX(), 2) +
-                Math.pow(_startPoint.getY() - _endPoint.getY(), 2));
-        circle.setRadius(radius);
-
-        fillShape(circle);
-        addShapeToScreen(circle);
-    }
-
-
-    private void createRectangle(){
-        MyRectangle rectangle = new MyRectangle(0,0,0,0,_startPoint,_endPoint, colorPicker.getValue(),_fillType);
-//        Rectangle rectangle = new Rectangle(0,0,0,0);
-//        rectangle.setTranslateX(_startPoint.getX());
-//        rectangle.setTranslateY(_startPoint.getY());
-//
-//        rectangle.setWidth(_endPoint.getX() - rectangle.getTranslateX());
-//        rectangle.setHeight(_endPoint.getY() - rectangle.getTranslateY());
-//
-//        fillShape(rectangle);
-        addShapeToScreen(rectangle);
-    }
-
+    //add shape to the screen
     private void addShapeToScreen(Shape shape){
         pane.getChildren().add(shape);
         _shapes.add(shape);
     }
 
-    private void fillShape(Shape shape){
-        var selectedColor = colorPicker.getValue();
-        if(_polygon == Polygon.LINE){
-            shape.setStroke(selectedColor);
-        }else {
-            if(_fillType == FillType.EMPTY ){
-                shape.setFill(Color.TRANSPARENT);
-                shape.setStroke(selectedColor);
-            }else{
-                shape.setFill(selectedColor);
-            }
-        }
-
-    }
-
-    //
-
+    //upon selecting a Circle
     @FXML
     void onActionCircleSelect(ActionEvent event) {
         _polygon = Polygon.CIRCLE;
     }
 
+    //clear all shapes from the screen
     @FXML
     void onActionClear(ActionEvent event) {
         pane.getChildren().clear();
@@ -162,26 +112,31 @@ public class HelloController {
 
     }
 
+    ////upon selecting an empty shape fill
     @FXML
     void onActionEmptyShape(ActionEvent event) {
         _fillType = FillType.EMPTY;
     }
 
+    ////upon selecting a full shape fill
     @FXML
     void onActionFullShape(ActionEvent event) {
         _fillType = FillType.FULL;
     }
 
+    //upon selecting a Line
     @FXML
     void onActionLineSelect(ActionEvent event) {
         _polygon = Polygon.LINE;
     }
 
+    //upon selecting a Rectangle
     @FXML
     void onActionRectangleSelect(ActionEvent event) {
         _polygon = Polygon.RECTANGLE;
     }
 
+    //remove last inserted shape from screen
     @FXML
     void onActionUndo(ActionEvent event) {
         if(_shapes.size() > 0){
@@ -189,5 +144,4 @@ public class HelloController {
             pane.getChildren().remove(shape);
         }
     }
-
 }
