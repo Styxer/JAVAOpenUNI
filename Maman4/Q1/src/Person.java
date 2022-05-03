@@ -4,24 +4,24 @@ import java.util.Objects;
 
 public class Person implements  Comparable<Person>{
 
-    private int _id;
+    private String _id;
     private String _lastName;
     private String _firstName;
     private LocalDate _DOB;
 
 
-    public Person(int id, String lastName, String firstName, LocalDate DOB) {
+    public Person(String id, String lastName, String firstName, LocalDate DOB) {
         _id = id;
         _lastName = lastName;
         _firstName = firstName;
         _DOB = DOB;
     }
 
-    public int getId() {
+    public String getId() {
         return _id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         _id = id;
     }
 
@@ -51,7 +51,7 @@ public class Person implements  Comparable<Person>{
 
     @Override
     public int compareTo(Person other) {
-        return Integer.compare(_id, other._id);
+        return _id.compareTo(other._id);
     }
 
     @Override

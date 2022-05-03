@@ -43,11 +43,11 @@ public class Main {
         System.out.println("-------------END TIME---------------");
         System.out.println("-------------MIN PERSON TIME---------------");
         MySet<Person> people = new MySet<>();
-        people.insert(new Person(1, "lapid", "yair", LocalDate.of(2014, 9, 11)));
-        people.insert(new Person(2, "donald", "trump",  LocalDate.of(1951, 3, 11)));
-        people.insert(new Person(3, "malka", "zion",  LocalDate.of(1967, 3, 11)));
-        people.insert(new Person(-4, "levi", "rami",  LocalDate.of(1985, 4, 22)));
-        people.insert(new Person(5, "sharp", "derek",  LocalDate.of(1970, 1, 14)));
+        people.insert(new Person("1", "lapid", "yair", LocalDate.of(2014, 9, 11)));
+        people.insert(new Person("2", "donald", "trump",  LocalDate.of(1951, 3, 11)));
+        people.insert(new Person("3", "malka", "zion",  LocalDate.of(1967, 3, 11)));
+        people.insert(new Person("-0004", "levi", "rami",  LocalDate.of(1985, 4, 22)));
+        people.insert(new Person("5", "sharp", "derek",  LocalDate.of(1970, 1, 14)));
         System.out.println("Min person " +MySetosh.<Person>getMin(people));
         System.out.println("-------------END MIN PERSON TIME---------------");
     }
