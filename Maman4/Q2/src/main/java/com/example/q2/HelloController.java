@@ -54,6 +54,7 @@ public class HelloController implements Initializable {
 
     private Boolean isUpdate;
 
+    //add word-meaning button event
     @FXML
     void OnAddBtn(ActionEvent event) {
 
@@ -64,8 +65,10 @@ public class HelloController implements Initializable {
         setRemoveBtnDisabled(true);
         setSaveBtnDisabled(false);
         setAddBtnDisabled(true);
+
     }
 
+    //remove word-meaning button event
     @FXML
     void OnRemoveBtn(ActionEvent event) {
         String selectedItem =  listView.getSelectionModel().getSelectedItem();
@@ -73,11 +76,13 @@ public class HelloController implements Initializable {
         addItemsToListView();
     }
 
+    //search word button event
     @FXML
     void onSearchBtn(ActionEvent event) {
         addItemsToListView();
     }
 
+    //update meaning button event
     @FXML
     void onUpdateBtn(ActionEvent event) {
 
@@ -88,6 +93,7 @@ public class HelloController implements Initializable {
         setTxtAreaDisabled(false);
     }
 
+    //save dictionary to file button event
     @FXML
     void onSaveBtn(ActionEvent event) {
 
@@ -112,6 +118,7 @@ public class HelloController implements Initializable {
 
     }
 
+    //show search result(s) to the list-view according the word that user typed
     @FXML
     void onMousePressedListView(MouseEvent event) {
         String selectedItem =  listView.getSelectionModel().getSelectedItem();
@@ -120,14 +127,17 @@ public class HelloController implements Initializable {
         searchTxt.setText(selectedItem);
     }
 
+
+    //load file from disk button event
     @FXML
     void onLoadFromFileBtn(ActionEvent event) {
         dictionary.loadDictionary();
     }
 
+    //save file to disk button event
     @FXML
     void onSaveToFileBtn(ActionEvent event) {
-        FileWorker.writeToFile(dictionary.getDictionary(), Constants.TEST_FILE_LOCATION1);
+        FileWorker.writeToFile(dictionary.getDictionary());
     }
 
 
@@ -136,6 +146,7 @@ public class HelloController implements Initializable {
         dictionary = new Dictionary();
     }
 
+    //add item to the list-view according the search word
     private void addItemsToListView(){
         listView.getItems().clear();
         for (var entry : dictionary.getDictionary().entrySet()){
@@ -153,29 +164,39 @@ public class HelloController implements Initializable {
     }
 
 
+    //set add button disable state
     private void setAddBtnDisabled(Boolean state){
         addBtn.setDisable(state);
     }
 
+    //set update button disable state
     private void setUpdateBtnDisabled(boolean state){
         updateBtn.setDisable(state);
     }
 
+    //set remove button disable state
     private void setRemoveBtnDisabled(Boolean state){
         removeBtn.setDisable(state);
     }
 
+    //set save button disable state
     private void setSaveBtnDisabled(boolean state){
         saveBtn.setDisable(state);
     }
 
+
+    // TODO: 14-May-22 fix txt area to meaning
+    //set text area(  disable and editable state and text
     private void setTxtAreaDisabled(boolean state){
         txtArea.setDisable(state);
         txtArea.setEditable(!state);
 
-        if(!txtArea.isEditable())
+        if(!txtArea.isDisable())
             txtArea.setText("");
     }
+
+    // TODO: 14-May-22 fix word new meaning to new word
+    //set new word  disable and editable state and text
     private void setNewMeaningTxtDisabled(Boolean state){
         newMeaningTxt.setDisable(state);
         newMeaningTxt.setEditable(!state);

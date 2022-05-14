@@ -1,17 +1,12 @@
 package com.example.q2.Models;
 
-import com.example.q2.Constants;
 import com.example.q2.FileWorker;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Scanner;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+//Represents a dictionary class
 public class Dictionary {
 
     private SortedMap<String, String> dictionary;
@@ -29,17 +24,17 @@ public class Dictionary {
         this.dictionary = dictionary;
     }
 
+    //Load dictionary from file
     public void loadDictionary(){
         try {
-            BufferedReader reader = FileWorker.LoadFromFile();
+            BufferedReader reader = FileWorker.loadFromFile();
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] splitter = line.split(":");
-                String word = splitter[0].replace("\"", "").trim();
-                String[] meaning = splitter[1].replace("\"", "").trim().split("\\d.");
-                dictionary.put(word, meaning[0]);
-
-
+                String word = splitter[0].replace("\"", "").trim(); //Remove unnecessary "\" chars
+                // TODO: 14-May-22 .split("\\d."); new meaning in new lines 
+                String meaning = splitter[1].replace("\"", "").trim(); //Remove unnecessary "\" chars
+                dictionary.put(word, meaning);
             }
             reader.close();
         } catch (IOException e) {
@@ -50,18 +45,22 @@ public class Dictionary {
         }
     }
 
+    //search for a meaning in the dictionary, returns nothing if not found
     public  String searchMeaning(String word){
         return dictionary.getOrDefault(word, "");
     }
 
+    //delete meaning from the dictionary, do nothing if not found
     public  void deleteMeaning(String word){
         dictionary.remove(word);
     }
 
+    //update meaning of a word in the dictionary, do nothing if not ofund
     public void updateMeaning(String word, String meaning){
         dictionary.replace(word, meaning);
     }
 
+    //add a new word-meaning pair to the dictionary
     public void addMeaning(String word, String meaning){
         dictionary.put(word, meaning);
     }
