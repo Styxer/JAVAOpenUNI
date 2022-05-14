@@ -1,6 +1,8 @@
 import java.util.*;
 
-public class MySet<T extends Comparable<T>> implements Comparable<MySet<T>>, Iterator<T> {
+
+//Represents a  generic class used to define sets of members of some type without duplicates
+public class MySet<T extends Comparable<T>> implements  Iterator<T> {
 
     private List<T> _set;
     private int _currentIndex = 0;
@@ -40,21 +42,26 @@ public class MySet<T extends Comparable<T>> implements Comparable<MySet<T>>, Ite
                 '}';
     }
 
+    //An action that receives a group and checks if it represents a subgroup of the group.
     public boolean isSubset(MySet<T> otherSet) {
         return otherSet.getSet().containsAll(_set);
     }
 
 
+
+    //An action that receives an organ and checks if it belongs to a group.
     public boolean isMember(T item) {
         return _set.contains(item);
     }
 
+    //- A unifying action that receives a group and unites it with some other group.
     public void union(MySet<T> otherSet) {
         for (int i = 0; i < otherSet.size(); i++) {
             insert(otherSet.getSet().get(i));
         }
     }
 
+    //A cutting operation that receives a group and performs group cutting.
     public void intersect(MySet<T> otherSet) {
         Set<T> s1 = new HashSet<T>(otherSet.getSet());
         Set<T> s2 = new HashSet<T>(_set);
@@ -63,22 +70,19 @@ public class MySet<T extends Comparable<T>> implements Comparable<MySet<T>>, Ite
         _set = new ArrayList<>(s1);
     }
 
+    //An action that receives an item and adds it to a group.
+    // In case an equal item already exists in the group the action will do nothing.
     public void insert(T item) {
         if (!isMember(item))
             _set.add(item);
     }
 
+    //An action that receives an item and removes it from the group.
+    // If the item does not exist the operation will do nothing.
     public void delete(T item) {
         _set.remove(item);
     }
-
-
-
-    @Override
-    public int compareTo(MySet<T> other) {
-        return 0; //TODO
-    }
-
+    
 
 
     @Override

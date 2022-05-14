@@ -8,10 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.q2.HelloController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.q2.HelloController">
     <children>
         <VBox prefHeight="400.0" prefWidth="172.0">
             <children>
@@ -24,7 +21,7 @@
             <children>
                 <HBox alignment="CENTER" prefHeight="40.0" prefWidth="429.0">
                     <children>
-                        <TextField fx:id="newMeaningTxt" disable="true" editable="false">
+                        <TextField fx:id="newMeaningTxt" disable="true">
                             <HBox.margin>
                                 <Insets right="3.0" />
                             </HBox.margin>
@@ -52,7 +49,13 @@
                             </HBox.margin></Button>
                     </children>
                 </HBox>
-                <TextArea fx:id="txtArea" editable="false" disable="true" prefHeight="357.0" prefWidth="429.0" />
+                <HBox prefHeight="28.0" prefWidth="429.0">
+                    <children>
+                        <Button fx:id="saveToFileBtn" mnemonicParsing="false" onAction="#onSaveToFileBtn" prefHeight="25.0" prefWidth="196.0" text="Save to file" />
+                        <Button fx:id="loadFromFileBtn" mnemonicParsing="false" onAction="#onLoadFromFileBtn" prefHeight="25.0" prefWidth="226.0" text="Load from file" />
+                    </children>
+                </HBox>
+                <TextArea fx:id="txtArea" editable="false" prefHeight="357.0" prefWidth="429.0" />
             </children>
         </VBox>
     </children>

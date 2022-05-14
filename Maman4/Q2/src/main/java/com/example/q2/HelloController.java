@@ -44,6 +44,12 @@ public class HelloController implements Initializable {
     @FXML
     private Button updateBtn;
 
+    @FXML
+    private Button loadFromFileBtn;
+
+    @FXML
+    private Button saveToFileBtn;
+
     private Dictionary dictionary;
 
     private Boolean isUpdate;
@@ -57,6 +63,7 @@ public class HelloController implements Initializable {
         setUpdateBtnDisabled(true);
         setRemoveBtnDisabled(true);
         setSaveBtnDisabled(false);
+        setAddBtnDisabled(true);
     }
 
     @FXML
@@ -113,6 +120,16 @@ public class HelloController implements Initializable {
         searchTxt.setText(selectedItem);
     }
 
+    @FXML
+    void onLoadFromFileBtn(ActionEvent event) {
+        dictionary.loadDictionary();
+    }
+
+    @FXML
+    void onSaveToFileBtn(ActionEvent event) {
+        FileWorker.writeToFile(dictionary.getDictionary(), Constants.TEST_FILE_LOCATION1);
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -134,6 +151,7 @@ public class HelloController implements Initializable {
             setRemoveBtnDisabled(true);
         }
     }
+
 
     private void setAddBtnDisabled(Boolean state){
         addBtn.setDisable(state);

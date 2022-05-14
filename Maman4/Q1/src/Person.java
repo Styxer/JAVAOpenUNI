@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+//Represents a person
 public class Person implements  Comparable<Person>{
 
     private String _id;
@@ -11,10 +12,16 @@ public class Person implements  Comparable<Person>{
 
 
     public Person(String id, String lastName, String firstName, LocalDate DOB) {
-        _id = id;
+
+        if(isNumeric(id)){
+            _id = id;
+        }
+
         _lastName = lastName;
         _firstName = firstName;
         _DOB = DOB;
+
+
     }
 
     public String getId() {
@@ -22,7 +29,9 @@ public class Person implements  Comparable<Person>{
     }
 
     public void setId(String id) {
-        _id = id;
+        if(isNumeric(id)){
+            _id = id;
+        }
     }
 
     public String getLastName() {
@@ -75,5 +84,14 @@ public class Person implements  Comparable<Person>{
                 ", _firstName='" + _firstName + '\'' +
                 ", _DOB=" + _DOB +
                 '}';
+    }
+
+    //check is some string is numeric
+    public static boolean isNumeric(String str)
+    {
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) return false;
+        }
+        return true;
     }
 }
