@@ -185,7 +185,7 @@ public class HelloController implements Initializable {
     }
 
 
-    // TODO: 14-May-22 fix txt area to meaning
+
     //set text area(  disable and editable state and text
     private void setTxtAreaDisabled(boolean state){
         txtArea.setDisable(state);
@@ -195,7 +195,7 @@ public class HelloController implements Initializable {
             txtArea.setText("");
     }
 
-    // TODO: 14-May-22 fix word new meaning to new word
+
     //set new word  disable and editable state and text
     private void setNewMeaningTxtDisabled(Boolean state){
         newMeaningTxt.setDisable(state);

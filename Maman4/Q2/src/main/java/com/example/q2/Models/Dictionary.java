@@ -31,9 +31,9 @@ public class Dictionary {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] splitter = line.split(":");
-                String word = splitter[0].replace("\"", "").trim(); //Remove unnecessary "\" chars
-                // TODO: 14-May-22 .split("\\d."); new meaning in new lines 
-                String meaning = splitter[1].replace("\"", "").trim(); //Remove unnecessary "\" chars
+                //Remove unnecessary "\" chars
+                String word = splitter[0].replace("\"", "").trim();
+                String meaning = splitter[1].replace("\"", "").trim().replaceAll("\\d.","\n");//add new line for each meaning 
                 dictionary.put(word, meaning);
             }
             reader.close();
@@ -62,6 +62,9 @@ public class Dictionary {
 
     //add a new word-meaning pair to the dictionary
     public void addMeaning(String word, String meaning){
-        dictionary.put(word, meaning);
+        if(dictionary.containsKey(word)){
+            dictionary.put(word, meaning);
+        }
+
     }
 }
