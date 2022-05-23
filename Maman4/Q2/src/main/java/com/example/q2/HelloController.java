@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
@@ -149,7 +150,7 @@ public class HelloController implements Initializable {
     //add item to the list-view according the search word
     private void addItemsToListView(){
         listView.getItems().clear();
-        for (var entry : dictionary.getDictionary().entrySet()){
+        for (Map.Entry<String,String> entry: dictionary.getDictionary().entrySet()){
             if(entry.getKey().contains(searchTxt.getText())){
                 listView.getItems().add(entry.getKey());
             }

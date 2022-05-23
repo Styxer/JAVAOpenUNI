@@ -33,7 +33,7 @@ public class Dictionary {
                 String[] splitter = line.split(":");
                 //Remove unnecessary "\" chars
                 String word = splitter[0].replace("\"", "").trim();
-                String meaning = splitter[1].replace("\"", "").trim().replaceAll("\\d.","\n");//add new line for each meaning 
+                String meaning = splitter[1].replace("\"", "").trim().replaceAll("\\d.","\n");//add new line for each meaning
                 dictionary.put(word, meaning);
             }
             reader.close();

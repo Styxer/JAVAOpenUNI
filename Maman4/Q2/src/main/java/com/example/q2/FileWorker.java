@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
 import java.util.Objects;
 import java.util.SortedMap;
 
@@ -20,7 +22,7 @@ public class FileWorker {
         try {
             FileWriter writer = new FileWriter(a);
             writer.write("");
-            for (var entry : dictionary.entrySet()){
+            for (Map.Entry<String,String>  entry : dictionary.entrySet()){
                 writer.write("\"" + entry.getKey() + "\"" + ":" + "\"" + entry.getValue() + "\"" + "\r\n" );
             }
             writer.close();
@@ -52,7 +54,7 @@ public class FileWorker {
             //handle it
             return  null;
         }else{
-            Constants.FILE_PATH =  Path.of(selectedFile.getPath());
+            Constants.FILE_PATH = Paths.get(selectedFile.getPath());
         }
 
         return Constants.FILE_PATH;
