@@ -1,51 +1,37 @@
-import java.util.ArrayList;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import Model.ThreadSafeArrayList;
 
-public class SumThread implements Runnable{
+public class SumThread extends Thread{
 
 
-    private int firstIndex, secondIndex;
-    private ArrayList<Integer> arr;
-    private int ans = 0;
-    private Lock lock;
+    private ThreadSafeArrayList<Integer> arrayList;
+    private Monitor monitor;
 
-    public SumThread(ArrayList<Integer> arr, int ans) {
-     //   this.firstIndex = firstIndex;
-      //  this.secondIndex = secondIndex;
-        this.arr = arr;
-        this.ans = ans;
-        lock = new ReentrantLock();
+    public SumThread(Monitor monitor) {
+        this.monitor = monitor;
+        arrayList = monitor.getArrayList();
     }
 
     @Override
     public void run() {
-        lock.lock();
+        int firstNum = 0, secondNum = 0;
+
         try {
-            ans += arr.get(firstIndex) + arr.get(secondIndex);
-        }finally {
-            lock.unlock();
+            firstNum = arrayList.remove(0);
+        }catch (IndexOutOfBoundsException e){
+            firstNum = 0;
         }
+        if(firstNum != 0){
+            try {
+                secondNum = arrayList.remove(0);
+            }catch (IndexOutOfBoundsException e){
+                System.out.println(e.getStackTrace());
+            }
 
-    }
-
-    public int getFirstIndex() {
-        return firstIndex;
-    }
-
-    public void setFirstIndex(int firstIndex) {
-        this.firstIndex = firstIndex;
-    }
-
-    public int getSecondIndex() {
-        return secondIndex;
-    }
-
-    public void setSecondIndex(int secondIndex) {
-        this.secondIndex = secondIndex;
-    }
-
-    public int getAns() {
-        return ans;
+            int sum = firstNum + secondNum;
+            if(sum != 0){
+                arrayList.add(sum);
+            }
+        }
+        monitor.imDone();
     }
 }
